@@ -7,6 +7,7 @@ class Restaurant(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     food_category = models.CharField(max_length=100)
+    yelp_url = models.TextField(max_length=255)
     personal_rating = models.IntegerField()
 
     def __str__(self):
