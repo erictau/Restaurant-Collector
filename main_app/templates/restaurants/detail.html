@@ -17,6 +17,10 @@ Restaurant Details
     <p>Personal Rating: {{ restaurant.personal_rating }}</p>
     <p>Yelp Link: <a href="{{ restaurant.yelp_url }}">Link</a></p>
     </div>
+    <div class="card-action">
+        <a href="{% url 'restaurants_update' restaurant.id %}">Edit</a>
+        <a href="{% url 'restaurants_delete' restaurant.id %}">Delete</a>
+    </div>
 </div>
 
 {% endblock %}

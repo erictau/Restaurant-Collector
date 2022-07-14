@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import Restaurant
 
@@ -24,5 +24,13 @@ def restaurants_detail(request, restaurant_id):
     })
 
 class RestaurantCreate(CreateView):
+    model = Restaurant
+    fields = '__all__'
+
+class RestaurantDelete(DeleteView):
+    model = Restaurant
+    success_url = '/restaurants/'
+
+class RestaurantUpdate(UpdateView):
     model = Restaurant
     fields = '__all__'
