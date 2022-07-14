@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView
 
 from .models import Restaurant
 
@@ -21,3 +22,7 @@ def restaurants_detail(request, restaurant_id):
     return render(request, 'restaurants/detail.html', {
         'restaurant': restaurant
     })
+
+class RestaurantCreate(CreateView):
+    model = Restaurant
+    fields = '__all__'
