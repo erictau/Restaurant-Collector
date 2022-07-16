@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import Restaurant
+from .forms import FoodForm
 
 # Create your views here.
 def home(request):
@@ -19,8 +20,10 @@ def restaurants_index(request):
 
 def restaurants_detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
+    food_form = FoodForm()
     return render(request, 'restaurants/detail.html', {
-        'restaurant': restaurant
+        'restaurant': restaurant,
+        'food_form': food_form
     })
 
 class RestaurantCreate(CreateView):
@@ -34,3 +37,11 @@ class RestaurantDelete(DeleteView):
 class RestaurantUpdate(UpdateView):
     model = Restaurant
     fields = '__all__'
+
+def add_food(request, restaurant_id):
+    form = FoodForm(request.POST)
+    if form.is_valid():
+        new_food = form.save(commit=False)
+        new_food.restaurant_id = restaurant_id
+        new_food.save()
+    return redirect('detail', restaurant_id=restaurant_id)

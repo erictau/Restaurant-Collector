@@ -21,7 +21,7 @@ class Restaurant(models.Model):
 
 
 class Food(models.Model):
-    name = models.CharField(max_length=100)
+    item = models.CharField(max_length=100)
     date_ordered = models.DateField('Date Ordered')
     price = models.FloatField(blank=True)
     rating = models.IntegerField(
@@ -34,6 +34,6 @@ class Food(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['rating']
+        ordering = ['-rating']
 
     
