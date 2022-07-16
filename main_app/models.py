@@ -18,3 +18,22 @@ class Restaurant(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'restaurant_id': self.id})
+
+
+class Food(models.Model):
+    name = models.CharField(max_length=100)
+    date_ordered = models.DateField('Date Ordered')
+    price = models.FloatField(blank=True)
+    rating = models.IntegerField(
+        validators = [MaxValueValidator(5), MinValueValidator(1)]
+    )
+    comment = models.TextField(max_length=500)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['rating']
+
+    
