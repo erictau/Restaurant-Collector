@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView
 
-from .models import Restaurant
+from .models import Certification, Restaurant
 from .forms import FoodForm
 
 # Create your views here.
@@ -21,9 +22,13 @@ def restaurants_index(request):
 def restaurants_detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     food_form = FoodForm()
+    cert_id_list = restaurant.certifications.all().values_list('id')
+    certs_not_owned = Certification.objects.exclude(id__in=cert_id_list)
+
     return render(request, 'restaurants/detail.html', {
         'restaurant': restaurant,
-        'food_form': food_form
+        'food_form': food_form,
+        'certs_not_owned': certs_not_owned
     })
 
 class RestaurantCreate(CreateView):
@@ -45,3 +50,19 @@ def add_food(request, restaurant_id):
         new_food.restaurant_id = restaurant_id
         new_food.save()
     return redirect('detail', restaurant_id=restaurant_id)
+
+class CertificationList(ListView):
+    model = Certification
+
+class CertificationCreate(CreateView):
+    model = Certification
+    fields = '__all__'
+
+class CertificationDetail(DetailView):
+    model = Certification
+
+class CertificationDelete(DeleteView):
+    models = Certification
+    success_url = '/certifications/'
+
+

@@ -10,4 +10,8 @@ urlpatterns = [
     path('restaurants/<int:pk>/delete/', views.RestaurantDelete.as_view(), name='restaurants_delete'),
     path('restaurants/<int:pk>/update/', views.RestaurantUpdate.as_view(), name='restaurants_update'),
     path('restaurants/<int:restaurant_id>/add_food/', views.add_food, name='add_food'),
+    path('certifications/', views.CertificationList.as_view(), name='certification_index'),
+    path('certifications/create/', views.CertificationCreate.as_view(), name='certification_create'),
+    path('certifications/<int:pk>/', views.CertificationDetail.as_view(), name='certification_detail'),
+    path('certifications/<int:pk>/delete', views.CertificationDelete.as_view(), name='certification_delete')
 ]

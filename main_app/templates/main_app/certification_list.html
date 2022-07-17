@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Certifications
+{% endblock %}
+
+{% block content %}
+    <h4>Certifications</h4>
+    {% for certification in certification_list %}
+        <p>
+            <a href="{% url 'certification_detail' certification.id %}">{{ certification.name }} - {{ certification.level }}</a>
+        </p>
+    {% empty %}
+        <p>No certificates yet.</p>
+    {% endfor %}
+
+{% endblock %}

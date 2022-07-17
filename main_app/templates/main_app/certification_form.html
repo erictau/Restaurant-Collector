@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Certification
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'certification_create' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Create Certification" class="btn">
+</form>
+
+{% endblock %}

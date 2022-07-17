@@ -3,6 +3,18 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
 
 # Create your models here.
+
+class Certification(models.Model):
+    name = models.CharField(max_length=50)
+    level = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('certification_index')
+
+
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
@@ -12,6 +24,7 @@ class Restaurant(models.Model):
     personal_rating = models.IntegerField(
         validators = [MaxValueValidator(5), MinValueValidator(1)]
     )
+    certifications = models.ManyToManyField(Certification )
 
     def __str__(self):
         return self.name
@@ -36,4 +49,4 @@ class Food(models.Model):
     class Meta:
         ordering = ['-rating']
 
-    
+
