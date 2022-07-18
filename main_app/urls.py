@@ -13,5 +13,6 @@ urlpatterns = [
     path('certifications/', views.CertificationList.as_view(), name='certification_index'),
     path('certifications/create/', views.CertificationCreate.as_view(), name='certification_create'),
     path('certifications/<int:pk>/', views.CertificationDetail.as_view(), name='certification_detail'),
-    path('certifications/<int:pk>/delete', views.CertificationDelete.as_view(), name='certification_delete')
+    path('certifications/<int:pk>/delete', views.CertificationDelete.as_view(), name='certification_delete'),
+    path('restaurants/<int:restaurant_id>/certifications/<int:certification_id>', views.assoc_certification, name='assoc_certification')
 ]

@@ -65,4 +65,7 @@ class CertificationDelete(DeleteView):
     models = Certification
     success_url = '/certifications/'
 
+def assoc_certification(request, restaurant_id, certification_id):
+    Restaurant.objects.get(id=restaurant_id).certifications.add(certification_id)
+    return redirect('detail', restaurant_id=restaurant_id)
 

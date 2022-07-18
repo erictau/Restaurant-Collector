@@ -28,6 +28,19 @@ Restaurant Details
     <div class="col s6">
         <div class="card">
             <div class="card-content">
+                <span class="card-title">{{ restaurant.name }} Certifications</span>
+                {% for cert in restaurant.certifications.all %}
+                    <p>{{ cert.name }} - {{ cert.level }}</p>
+                {% empty %}
+                    <p>N/A</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+ 
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
                 <span class="card-title">Add Items</span>
                 <form action="{% url 'add_food' restaurant.id %}" method="POST">
                     {% csrf_token %}
@@ -37,7 +50,28 @@ Restaurant Details
             </div>
         </div>
     </div>
+</div>
 
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Other Certifications</span>
+                {% for cert in certs_not_owned %}
+                    <form action="{% url 'assoc_certification' restaurant.id cert.id %}">
+                        {% csrf_token %}
+                        <p>
+                            <span><input type="submit" class="btn" value="+"></span>
+                            {{ cert.name }} - {{ cert.level }} 
+                        </p>
+
+                    </form>
+                {% empty %}
+                    <p>N/A</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="col s6">
         <div class="card">
             <div class="card-content">
@@ -55,33 +89,6 @@ Restaurant Details
                 {% empty %}
                 <p>No items have been added.</p>
                 {% endfor %} 
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col s6">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">{{ restaurant.name }} Certifications</span>
-                {% for cert in restaurant.certifications.all %}
-                    <p>{{ cert.name }} - {{ cert.level }}</p>
-                {% empty %}
-                    <p>N/A</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <div class="col s6">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Other Certifications</span>
-                {% for cert in certs_not_owned %}
-                    <p>{{ cert.name }} - {{ cert.level }}</p>
-                {% empty %}
-                    <p>N/A</p>
-                {% endfor %}
             </div>
         </div>
     </div>
